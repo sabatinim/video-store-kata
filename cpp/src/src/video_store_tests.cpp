@@ -2,6 +2,10 @@
 #include "catch.hpp"
 #include <list>
 
+#include <iomanip> // setprecision
+#include <sstream> // stringstream
+
+
 class User
 {
 private:
@@ -37,11 +41,20 @@ public:
         return this->title;
     }
     
-    long price()
+    double price()
     {
+        if(this->rentalDays > 2)
+            return 3.0 + 1.5;
         return 3.0;
     }
 };
+
+static std::string printPrice(RegularMovie *regularMovie) {
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision(1) << regularMovie->price();
+    return stream.str();
+    
+}
 
 class VideoStore
 {
@@ -63,8 +76,9 @@ public:
         std::string result = "Rental Record for "+this->user->get_name()+" - ";
         int i=0;
         for (RegularMovie* regularMovie : this->regularMovieGroup) {
+            
             std::string separator = (i==0)?"":" - ";
-            result += std::string(separator +regularMovie->get_title()+" "+std::to_string(regularMovie->price()));
+            result += std::string(separator +regularMovie->get_title()+" "+printPrice(regularMovie));
             i++;
         }
         return result;
@@ -78,8 +92,23 @@ TEST_CASE( "Rent two regular movie for one day" ) {
     VideoStore *videoStore = new VideoStore(new User("Fred"),
                                             regularMovieGroup);
     
-    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 3 - ANOTHER_REGULAR_MOVIE 3" );
+    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 3.0 - ANOTHER_REGULAR_MOVIE 3.0" );
 }
+
+
+TEST_CASE( "Rent a regular movie for three days" ) {
+    
+    std::list<RegularMovie*> regularMovieGroup = {new RegularMovie("A_REGULAR_MOVIE",3)};
+    
+    VideoStore *videoStore = new VideoStore(new User("Fred"),
+                                            regularMovieGroup);
+    
+    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 4.5" );
+}
+
+
+
+
 
 
 
