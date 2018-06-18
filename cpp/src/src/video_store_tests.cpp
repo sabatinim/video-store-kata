@@ -58,25 +58,7 @@ public:
         this->regularMovieGroup = regularMovieGroup;
     }
     
-
-    VideoStore(User *user,RegularMovie *regularMovie)
-    {
-        this->user = user;
-        this->regularMovie = regularMovie;
-    }
-    
     std::string printReceipt()
-    {
-        return std::string("Rental Record for "+
-        this->user->get_name()+
-        " - "+
-        this->regularMovie->get_title()+
-        " "+
-        std::to_string(this->regularMovie->price())+
-        "");
-    }
-    
-    std::string printReceiptGroup()
     {
         std::string result = "Rental Record for "+this->user->get_name()+" - ";
         int i=0;
@@ -85,11 +67,9 @@ public:
             result += std::string(separator +regularMovie->get_title()+" "+std::to_string(regularMovie->price()));
             i++;
         }
-        
         return result;
     }
 };
-
 
 TEST_CASE( "Rent two regular movie for one day" ) {
    
@@ -98,7 +78,7 @@ TEST_CASE( "Rent two regular movie for one day" ) {
     VideoStore *videoStore = new VideoStore(new User("Fred"),
                                             regularMovieGroup);
     
-    CHECK( videoStore->printReceiptGroup() == "Rental Record for Fred - A_REGULAR_MOVIE 3 - ANOTHER_REGULAR_MOVIE 3" );
+    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 3 - ANOTHER_REGULAR_MOVIE 3" );
 }
 
 
