@@ -40,7 +40,7 @@ public:
     
     long price()
     {
-        return 3.0l;
+        return 3.0*this->rentalDays;
     }
 };
 
@@ -59,9 +59,14 @@ public:
     
     string printReceipt()
     {
-        return "Rental Record for "+this->user->get_name()+" - "+this->regularMovie->get_title()+" "+to_string(this->regularMovie->price())+"";
+        return "Rental Record for "+
+        this->user->get_name()+
+        " - "+
+        this->regularMovie->get_title()+
+        " "+
+        to_string(this->regularMovie->price())+
+        "";
     }
-
 };
 
 TEST_CASE( "Rent a regular movie for one day" ) {
@@ -69,8 +74,14 @@ TEST_CASE( "Rent a regular movie for one day" ) {
     VideoStore *videoStore = new VideoStore(new User("Fred"),
                                             new RegularMovie("A_REGULAR_MOVIE",1));
     
-    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 3.0" );
+    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 3" );
 }
 
-
+TEST_CASE( "Rent a regular movie for two day" ) {
+    
+    VideoStore *videoStore = new VideoStore(new User("Fred"),
+                                            new RegularMovie("A_REGULAR_MOVIE",2));
+    
+    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 6" );
+}
 
