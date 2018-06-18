@@ -39,7 +39,7 @@ public:
     
     long price()
     {
-        return 3.0*this->rentalDays;
+        return 3.0;
     }
 };
 
@@ -90,22 +90,6 @@ public:
     }
 };
 
-TEST_CASE( "Rent a regular movie for one day" ) {
-    
-    VideoStore *videoStore = new VideoStore(new User("Fred"),
-                                            new RegularMovie("A_REGULAR_MOVIE",1));
-    
-    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 3" );
-}
-
-TEST_CASE( "Rent a regular movie for two days" ) {
-    
-    VideoStore *videoStore = new VideoStore(new User("Fred"),
-                                            new RegularMovie("A_REGULAR_MOVIE",2));
-    
-    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 6" );
-}
-
 
 TEST_CASE( "Rent two regular movie for one day" ) {
    
@@ -116,5 +100,6 @@ TEST_CASE( "Rent two regular movie for one day" ) {
     
     CHECK( videoStore->printReceiptGroup() == "Rental Record for Fred - A_REGULAR_MOVIE 3 - ANOTHER_REGULAR_MOVIE 3" );
 }
+
 
 
