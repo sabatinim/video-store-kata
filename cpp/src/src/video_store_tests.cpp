@@ -34,3 +34,17 @@ TEST_CASE( "Rent a regular movie for five days" ) {
     
     CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 7.5" );
 }
+
+TEST_CASE( "Rent two regular movie for several days" ) {
+    
+    std::list<RegularMovie*> regularMovieGroup = {
+        new RegularMovie("A_REGULAR_MOVIE",2),
+        new RegularMovie("ANOTHER_REGULAR_MOVIE",5)
+    };
+    
+    VideoStore *videoStore = new VideoStore(new User("Fred"),
+                                            regularMovieGroup);
+    
+    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 3.0 - ANOTHER_REGULAR_MOVIE 7.5" );
+}
+
