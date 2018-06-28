@@ -6,7 +6,7 @@
 
 TEST_CASE( "Rent two regular movie for one day" ) {
    
-    std::list<RegularMovie*> regularMovieGroup = {new RegularMovie("A_REGULAR_MOVIE",1), new RegularMovie("ANOTHER_REGULAR_MOVIE",1)};
+    std::list<Movie*> regularMovieGroup = {new RegularMovie("A_REGULAR_MOVIE",1), new RegularMovie("ANOTHER_REGULAR_MOVIE",1)};
     
     VideoStore *videoStore = new VideoStore(new User("Fred"),
                                             regularMovieGroup);
@@ -17,7 +17,7 @@ TEST_CASE( "Rent two regular movie for one day" ) {
 
 TEST_CASE( "Rent a regular movie for three days" ) {
     
-    std::list<RegularMovie*> regularMovieGroup = {new RegularMovie("A_REGULAR_MOVIE",3)};
+    std::list<Movie*> regularMovieGroup = {new RegularMovie("A_REGULAR_MOVIE",3)};
     
     VideoStore *videoStore = new VideoStore(new User("Fred"),
                                             regularMovieGroup);
@@ -27,7 +27,7 @@ TEST_CASE( "Rent a regular movie for three days" ) {
 
 TEST_CASE( "Rent a regular movie for five days" ) {
     
-    std::list<RegularMovie*> regularMovieGroup = {new RegularMovie("A_REGULAR_MOVIE",5)};
+    std::list<Movie*> regularMovieGroup = {new RegularMovie("A_REGULAR_MOVIE",5)};
     
     VideoStore *videoStore = new VideoStore(new User("Fred"),
                                             regularMovieGroup);
@@ -37,7 +37,7 @@ TEST_CASE( "Rent a regular movie for five days" ) {
 
 TEST_CASE( "Rent two regular movie for several days" ) {
     
-    std::list<RegularMovie*> regularMovieGroup = {
+    std::list<Movie*> regularMovieGroup = {
         new RegularMovie("A_REGULAR_MOVIE",2),
         new RegularMovie("ANOTHER_REGULAR_MOVIE",5)
     };
@@ -47,4 +47,17 @@ TEST_CASE( "Rent two regular movie for several days" ) {
     
     CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 3.0 - ANOTHER_REGULAR_MOVIE 7.5" );
 }
+
+
+//TEST_CASE( "Rent a new release movie for one day" ) {
+//
+//    std::list<NewReleaseMovie*> movieGroup = {
+//        new NewReleaseMovie("A_NEW_RELEASE_MOVIE",1)
+//    };
+//
+//    VideoStore *videoStore = new VideoStore(new User("Fred"),
+//                                            movieGroup);
+//
+//    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_NEW_RELEASE_MOVIE 3.0" );
+//}
 
