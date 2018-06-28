@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8A63745320E5072800D9EAD6 /* Regular.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A63745120E5072800D9EAD6 /* Regular.cpp */; };
 		8A63745520E5082F00D9EAD6 /* User.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A63745420E5082F00D9EAD6 /* User.cpp */; };
 		8A63745720E508A200D9EAD6 /* VideoStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A63745620E508A200D9EAD6 /* VideoStore.cpp */; };
+		8A63745920E50EC600D9EAD6 /* Movies.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A63745820E50EC600D9EAD6 /* Movies.cpp */; };
 		8A7E445A20CE5CBA00FBD539 /* video_store_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A7E445920CE5CBA00FBD539 /* video_store_tests.cpp */; };
 /* End PBXBuildFile section */
 
@@ -26,9 +26,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8A63745120E5072800D9EAD6 /* Regular.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Regular.cpp; sourceTree = "<group>"; };
 		8A63745420E5082F00D9EAD6 /* User.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = User.cpp; sourceTree = "<group>"; };
 		8A63745620E508A200D9EAD6 /* VideoStore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VideoStore.cpp; sourceTree = "<group>"; };
+		8A63745820E50EC600D9EAD6 /* Movies.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Movies.cpp; sourceTree = "<group>"; };
 		8A7E445620CE5CBA00FBD539 /* src */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = src; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A7E445920CE5CBA00FBD539 /* video_store_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = video_store_tests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,8 +63,8 @@
 		8A7E445820CE5CBA00FBD539 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				8A63745820E50EC600D9EAD6 /* Movies.cpp */,
 				8A7E445920CE5CBA00FBD539 /* video_store_tests.cpp */,
-				8A63745120E5072800D9EAD6 /* Regular.cpp */,
 				8A63745420E5082F00D9EAD6 /* User.cpp */,
 				8A63745620E508A200D9EAD6 /* VideoStore.cpp */,
 			);
@@ -132,7 +132,7 @@
 			files = (
 				8A63745520E5082F00D9EAD6 /* User.cpp in Sources */,
 				8A7E445A20CE5CBA00FBD539 /* video_store_tests.cpp in Sources */,
-				8A63745320E5072800D9EAD6 /* Regular.cpp in Sources */,
+				8A63745920E50EC600D9EAD6 /* Movies.cpp in Sources */,
 				8A63745720E508A200D9EAD6 /* VideoStore.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
