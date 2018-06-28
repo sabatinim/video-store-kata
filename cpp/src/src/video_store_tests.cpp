@@ -6,7 +6,9 @@
 
 TEST_CASE( "Rent two regular movie for one day" ) {
    
-    std::list<Movie*> regularMovieGroup = {new RegularMovie("A_REGULAR_MOVIE",1), new RegularMovie("ANOTHER_REGULAR_MOVIE",1)};
+    std::list<Movie*> regularMovieGroup = {
+        new Regular("A_REGULAR_MOVIE",1),
+        new Regular("ANOTHER_REGULAR_MOVIE",1)};
     
     VideoStore *videoStore = new VideoStore(new User("Fred"),
                                             regularMovieGroup);
@@ -17,7 +19,7 @@ TEST_CASE( "Rent two regular movie for one day" ) {
 
 TEST_CASE( "Rent a regular movie for three days" ) {
     
-    std::list<Movie*> regularMovieGroup = {new RegularMovie("A_REGULAR_MOVIE",3)};
+    std::list<Movie*> regularMovieGroup = {new Regular("A_REGULAR_MOVIE",3)};
     
     VideoStore *videoStore = new VideoStore(new User("Fred"),
                                             regularMovieGroup);
@@ -27,7 +29,7 @@ TEST_CASE( "Rent a regular movie for three days" ) {
 
 TEST_CASE( "Rent a regular movie for five days" ) {
     
-    std::list<Movie*> regularMovieGroup = {new RegularMovie("A_REGULAR_MOVIE",5)};
+    std::list<Movie*> regularMovieGroup = {new Regular("A_REGULAR_MOVIE",5)};
     
     VideoStore *videoStore = new VideoStore(new User("Fred"),
                                             regularMovieGroup);
@@ -38,8 +40,8 @@ TEST_CASE( "Rent a regular movie for five days" ) {
 TEST_CASE( "Rent two regular movie for several days" ) {
     
     std::list<Movie*> regularMovieGroup = {
-        new RegularMovie("A_REGULAR_MOVIE",2),
-        new RegularMovie("ANOTHER_REGULAR_MOVIE",5)
+        new Regular("A_REGULAR_MOVIE",2),
+        new Regular("ANOTHER_REGULAR_MOVIE",5)
     };
     
     VideoStore *videoStore = new VideoStore(new User("Fred"),
@@ -49,15 +51,15 @@ TEST_CASE( "Rent two regular movie for several days" ) {
 }
 
 
-//TEST_CASE( "Rent a new release movie for one day" ) {
-//
-//    std::list<NewReleaseMovie*> movieGroup = {
-//        new NewReleaseMovie("A_NEW_RELEASE_MOVIE",1)
-//    };
-//
-//    VideoStore *videoStore = new VideoStore(new User("Fred"),
-//                                            movieGroup);
-//
-//    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_NEW_RELEASE_MOVIE 3.0" );
-//}
+TEST_CASE( "Rent a new release movie for one day" ) {
+
+    std::list<Movie*> movieGroup = {
+        new NewRelease("A_NEW_RELEASE_MOVIE",1)
+    };
+
+    VideoStore *videoStore = new VideoStore(new User("Fred"),
+                                            movieGroup);
+
+    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_NEW_RELEASE_MOVIE 3.0" );
+}
 

@@ -6,7 +6,6 @@ protected:
     std::string title;
     int rentalDays;
 
-    
 public:
     Movie(std::string title,int rentalDays)
     {
@@ -20,11 +19,11 @@ public:
     virtual double price() = 0;
 };
 
-class RegularMovie: public Movie{
+class Regular: public Movie{
     
 public:
     
-    RegularMovie(std::string title,int rentalDays) : Movie(title,rentalDays)
+    Regular(std::string title,int rentalDays) : Movie(title,rentalDays)
     {}
     
     int extrafeeDays() {
@@ -35,6 +34,19 @@ public:
     {
         if(extrafeeDays() > 0)
             return 3.0 + 1.5 * extrafeeDays();
+        return 3.0;
+    }
+};
+
+class NewRelease: public Movie{
+    
+public:
+    
+    NewRelease(std::string title,int rentalDays) : Movie(title,rentalDays)
+    {}
+    
+    double price()
+    {
         return 3.0;
     }
 };

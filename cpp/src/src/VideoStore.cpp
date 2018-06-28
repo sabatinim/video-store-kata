@@ -2,7 +2,7 @@
 
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
-#include "RegularMovie.cpp"
+#include "Regular.cpp"
 #include "User.cpp"
 
 class VideoStore
