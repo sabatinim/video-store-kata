@@ -30,8 +30,8 @@ public:
     {
         std::string result = "Rental Record for "+this->user->get_name()+" - ";
         int i=0;
-        for (Movie* regularMovie : this->regularMovieGroup) {
-            
+        for (Movie* regularMovie : this->regularMovieGroup)
+        {
             std::string separator = (i==0)?"":" - ";
             result += std::string(separator +regularMovie->get_title()+" "+printPrice(regularMovie));
             i++;

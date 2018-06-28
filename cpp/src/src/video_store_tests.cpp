@@ -75,3 +75,16 @@ TEST_CASE( "Rent a new release movie for three day" ) {
     CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_NEW_RELEASE_MOVIE 9.0" );
 }
 
+TEST_CASE( "Rent two new release movie for several days" ) {
+    
+    std::list<Movie*> movieGroup =
+    {
+        new NewRelease("A_NEW_RELEASE_MOVIE",3),
+        new NewRelease("ANOTHER_NEW_RELEASE_MOVIE",4)
+    };
+    
+    VideoStore *videoStore = new VideoStore(new User("Fred"),
+                                            movieGroup);
+    
+    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_NEW_RELEASE_MOVIE 9.0 - ANOTHER_NEW_RELEASE_MOVIE 12.0" );
+}
