@@ -41,10 +41,14 @@ public:
         return this->title;
     }
     
+    int extrafeeDays() {
+        return this->rentalDays -2;
+    }
+    
     double price()
     {
-        if(this->rentalDays > 2)
-            return 3.0 + 1.5;
+        if(extrafeeDays() > 0)
+            return 3.0 + 1.5 * extrafeeDays();
         return 3.0;
     }
 };
@@ -106,9 +110,12 @@ TEST_CASE( "Rent a regular movie for three days" ) {
     CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 4.5" );
 }
 
-
-
-
-
-
-
+TEST_CASE( "Rent a regular movie for five days" ) {
+    
+    std::list<RegularMovie*> regularMovieGroup = {new RegularMovie("A_REGULAR_MOVIE",5)};
+    
+    VideoStore *videoStore = new VideoStore(new User("Fred"),
+                                            regularMovieGroup);
+    
+    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 7.5" );
+}
