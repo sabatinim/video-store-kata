@@ -1,5 +1,5 @@
 
-Video store kata
+## Video store kata
 
 The idea of this kata is taken for the video store example from the book "Refactoring" of Martin Fowler  
 
@@ -17,11 +17,8 @@ The new release movie has a cost of 3 Eur per day rented
 The base cost for a children movie is 1.5 Eur  
 After the 3 day of rental an additional cost of 1.5 per day is applied.   
 ( So the additional cost is applied from the 4th day )   
-  
-For each video purchased the customer earns 1 frequent renter point and  
-if the video is a new release and is rented for more than 1 days he earns an additional frequent renter point.
 
-We want to print a statement for the videos purchased by a customer and his frequent renter points 
+We want to print a statement for the videos purchased by a customer
 
 Example: 
 If the customer <i>Fred</i> purchase 
@@ -36,16 +33,13 @@ We want to print the following statement:
 <i>- The game of thrones 3.0</i>   
 <i>- Cinderella	1.5</i>   
 <i>- Mr. Robot 2.0</i>  
-<i>- The Hobbit	3.5</i>   
+<i>- The Hobbit	3.5</i>
+<i>Total 10.0</i>
 
 
-<i>You owed 10.0</i>   
-<i>You earned 4 frequent renter points</i> 
+# Additional requirement:
 
-
-Additional requirement: 
-
-The video store owner changed his mind and asked to have the receipt also in HTML
+## The video store owner changed his mind and asked to have the receipt also in HTML
 
 ```html
 <!DOCTYPE html>
@@ -66,3 +60,5 @@ The video store owner changed his mind and asked to have the receipt also in HTM
   </body>
 </html>
 ```
+
+## The video store owner changed his mind again and asked to have the receipt both in HTML and plaint text.
