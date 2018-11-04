@@ -3,22 +3,23 @@
 
 The idea of this kata is taken for the video store example from the book "Refactoring" of Martin Fowler  
 
-In the video store there are 3 types of movies tha can be sold:  
+In the video store there are 3 types of movies tha can be sold:
 - regular movies 
 - new release movies 
 - children movies
 
-The base cost for a regular movie is 2 Eur  
+#####  Business logic for each movies
+- The base cost for a regular movie is 2 Eur
 After the 2 day of rental an additional cost of 1.5 per day is applied.   
 ( So the additional cost is applied from the 3rd day )  
   
-The new release movie has a cost of 3 Eur per day rented  
+- The new release movie has a cost of 3 Eur per day rented
 
-The base cost for a children movie is 1.5 Eur  
+- The base cost for a children movie is 1.5 Eur
 After the 3 day of rental an additional cost of 1.5 per day is applied.   
 ( So the additional cost is applied from the 4th day )   
 
-We want to print a statement for the videos purchased by a customer
+#### The customer want to print a statement for the videos purchased by a customer
 
 Example: 
 If the customer <i>Fred</i> purchase 
@@ -37,9 +38,9 @@ We want to print the following statement:
 <i>Total 10.0</i>
 
 
-# Additional requirement:
+### Additional requirement:
 
-## The video store owner changed his mind and asked to have the receipt also in HTML
+#### The video store owner changed his mind and asked to have the receipt also in HTML
 
 ```html
 <!DOCTYPE html>
@@ -61,4 +62,4 @@ We want to print the following statement:
 </html>
 ```
 
-## The video store owner changed his mind again and asked to have the receipt both in HTML and plaint text.
+#### The video store owner changed his mind again and asked to have the receipt both in HTML and plaint text.
