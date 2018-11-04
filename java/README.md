@@ -19,7 +19,7 @@ After the 2 day of rental an additional cost of 1.5 per day is applied.
 After the 3 day of rental an additional cost of 1.5 per day is applied.   
 ( So the additional cost is applied from the 4th day )   
 
-#### The customer want to print a statement for the videos purchased by a customer
+#### The customer want to print a statement for the videos purchased by a videostore user
 
 Example: 
 If the customer <i>Fred</i> purchase 
