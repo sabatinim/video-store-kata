@@ -56,8 +56,7 @@ We want to print the following statement:
        <li>Mr. Robot	2.0</li>
        <li>The Hobbit	3.5</li>
     </ul>
-    <br>You owed 10.0
-    <br>You earned 4 frequent renter points
+    <br>Total 10.0
   </body>
 </html>
 ```
