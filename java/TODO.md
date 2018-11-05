@@ -8,9 +8,9 @@
 
 ### Our TODO list
 
-[] new release movie for one day
-[] new release movie for five days
-[] two new release movie for one day
-[] two new release movie for five days
+- [X] new release movie for one day (customer movie title movie price)
+- [X] new release movie for five days (total price) days
+- [] two new release movie for one day (multi dimension) rental
+- [] two new release movie for five days (multi dimension with total price)
 
 //this could be enough for now. Divide problem in sub dimension.

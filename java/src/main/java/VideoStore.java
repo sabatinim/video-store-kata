@@ -7,11 +7,11 @@ public class VideoStore
     this.customer = customer;
   }
 
-  public String receiptFor(NewRelease movie)
+
+  public String receiptForDays(NewRelease movie, int days)
   {
     return "Rental Record for " + customer + "\n" +
-        "- " + movie.title() + " " + movie.price() + "\n" +
-        "Total " + movie.price();
+        "- " + movie.title() + " " + movie.price(days) + "\n" +
+        "Total " + movie.price(days);
   }
-
 }

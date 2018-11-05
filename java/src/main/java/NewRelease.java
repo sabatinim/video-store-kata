@@ -12,8 +12,8 @@ public class NewRelease
     return title;
   }
 
-  public double price()
+  public double price(int days)
   {
-    return 3.0;
+    return 3.0 * days;
   }
 }
