@@ -9,9 +9,16 @@ public class VideoStore
 
   public String receiptFor(NewReleaseMovie movie)
   {
-    double price = movie.price();
     return "Rental Record for " + customer.getName() + "\n" +
-        "- " + movie.getTitle() + " " + price + "\n" +
-        "Total 3.0";
+        "- " + movie.getTitle() + " " + movie.price() + "\n" +
+        "Total " + movie.price();
+  }
+
+  public String receiptFor(NewReleaseMovie newreleasemovie, int days)
+  {
+    double totalPrice = newreleasemovie.price() * days;
+    return "Rental Record for " + customer.getName() + "\n" +
+        "- newreleasemovie " + totalPrice + "\n" +
+        "Total " + totalPrice;
   }
 }

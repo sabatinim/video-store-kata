@@ -28,4 +28,16 @@ public class VideoStoreTest
             "- newreleasemovie 3.0\n" +
             "Total 3.0"));
   }
+
+  @Test
+  public void newReleaseMovieForFiveDays()
+  {
+    String result = new VideoStore(new Customer("Fred"))
+        .receiptFor(new NewReleaseMovie("newreleasemovie"),5);
+
+    Assert.assertThat(result, is(
+        "Rental Record for Fred\n" +
+            "- newreleasemovie 15.0\n" +
+            "Total 15.0"));
+  }
 }
