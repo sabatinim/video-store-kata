@@ -20,8 +20,7 @@ public class VideoStoreTest
   public void newReleasemovie()
   {
 
-    String result = new VideoStore(new Customer("Fred"))
-        .receiptFor(new NewReleaseMovie("newreleasemovie"));
+    String result = new VideoStore(new Customer("Fred")).receiptFor(new NewReleaseMovie("newreleasemovie"), 1);
 
     Assert.assertThat(result, is(
         "Rental Record for Fred\n" +
