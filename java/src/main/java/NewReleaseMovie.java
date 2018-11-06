@@ -12,8 +12,9 @@ public class NewReleaseMovie
     return title;
   }
 
-  public double price()
+  public double priceFor(int days)
   {
-    return 3.0;
+    double base_price = 3.0;
+    return base_price * days;
   }
 }
