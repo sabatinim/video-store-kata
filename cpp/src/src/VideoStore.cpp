@@ -9,18 +9,24 @@
 class MoviePrinter
 {
     
-};
-
-class Display
-{
-    
-    static std::string printPrice(double regularMovie) {
+public:
+    std::string printPrice(double regularMovie) {
         std::stringstream stream;
         stream << std::fixed << std::setprecision(1) << regularMovie;
         return stream.str();
     }
-    
+};
+
+class Display
+{
+private:
+    MoviePrinter *moviePrinter;
+
 public:
+    Display(MoviePrinter *moviePrinter){
+        this->moviePrinter = moviePrinter;
+    }
+    
     std::string print(std::list<Movie*> regularMovieGroup,std::string name)
     {
         std::string result = "Rental Record for "+name+" - ";
@@ -29,13 +35,11 @@ public:
         for (Movie* regularMovie : regularMovieGroup)
         {
             std::string separator = (i==0)?"":" - ";
-            result +=  std::string(separator +regularMovie->get_title() +" "+ printPrice(regularMovie->price()));
+            result +=  std::string(separator +regularMovie->get_title() +" "+ this->moviePrinter->printPrice(regularMovie->price()));
             i++;
         }
         return result;
-
     }
-    
 };
 
 
