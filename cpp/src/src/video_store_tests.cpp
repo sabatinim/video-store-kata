@@ -11,9 +11,9 @@ TEST_CASE( "Rent two regular movie for one day" ) {
         new Regular("ANOTHER_REGULAR_MOVIE",1)};
     
     VideoStore *videoStore = new VideoStore(new User("Fred"),
-                                            regularMovieGroup);
+                                            new Display());
     
-    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 3.0 - ANOTHER_REGULAR_MOVIE 3.0" );
+    CHECK( videoStore->printReceipt(regularMovieGroup) == "Rental Record for Fred - A_REGULAR_MOVIE 3.0 - ANOTHER_REGULAR_MOVIE 3.0" );
 }
 
 
@@ -22,9 +22,9 @@ TEST_CASE( "Rent a regular movie for three days" ) {
     std::list<Movie*> regularMovieGroup = {new Regular("A_REGULAR_MOVIE",3)};
     
     VideoStore *videoStore = new VideoStore(new User("Fred"),
-                                            regularMovieGroup);
+                                            new Display());
     
-    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 4.5" );
+    CHECK( videoStore->printReceipt(regularMovieGroup) == "Rental Record for Fred - A_REGULAR_MOVIE 4.5" );
 }
 
 TEST_CASE( "Rent a regular movie for five days" ) {
@@ -32,9 +32,9 @@ TEST_CASE( "Rent a regular movie for five days" ) {
     std::list<Movie*> regularMovieGroup = {new Regular("A_REGULAR_MOVIE",5)};
     
     VideoStore *videoStore = new VideoStore(new User("Fred"),
-                                            regularMovieGroup);
+                                            new Display());
     
-    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 7.5" );
+    CHECK( videoStore->printReceipt(regularMovieGroup) == "Rental Record for Fred - A_REGULAR_MOVIE 7.5" );
 }
 
 TEST_CASE( "Rent two regular movie for several days" ) {
@@ -45,9 +45,9 @@ TEST_CASE( "Rent two regular movie for several days" ) {
     };
     
     VideoStore *videoStore = new VideoStore(new User("Fred"),
-                                            regularMovieGroup);
+                                            new Display());
     
-    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_REGULAR_MOVIE 3.0 - ANOTHER_REGULAR_MOVIE 7.5" );
+    CHECK( videoStore->printReceipt(regularMovieGroup) == "Rental Record for Fred - A_REGULAR_MOVIE 3.0 - ANOTHER_REGULAR_MOVIE 7.5" );
 }
 
 
@@ -58,9 +58,9 @@ TEST_CASE( "Rent a new release movie for one day" ) {
     };
 
     VideoStore *videoStore = new VideoStore(new User("Fred"),
-                                            movieGroup);
+                                            new Display());
 
-    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_NEW_RELEASE_MOVIE 3.0" );
+    CHECK( videoStore->printReceipt(movieGroup) == "Rental Record for Fred - A_NEW_RELEASE_MOVIE 3.0" );
 }
 
 TEST_CASE( "Rent a new release movie for three day" ) {
@@ -70,9 +70,9 @@ TEST_CASE( "Rent a new release movie for three day" ) {
     };
     
     VideoStore *videoStore = new VideoStore(new User("Fred"),
-                                            movieGroup);
+                                            new Display());
     
-    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_NEW_RELEASE_MOVIE 9.0" );
+    CHECK( videoStore->printReceipt(movieGroup) == "Rental Record for Fred - A_NEW_RELEASE_MOVIE 9.0" );
 }
 
 TEST_CASE( "Rent two new release movie for several days" ) {
@@ -84,7 +84,7 @@ TEST_CASE( "Rent two new release movie for several days" ) {
     };
     
     VideoStore *videoStore = new VideoStore(new User("Fred"),
-                                            movieGroup);
+                                            new Display());
     
-    CHECK( videoStore->printReceipt() == "Rental Record for Fred - A_NEW_RELEASE_MOVIE 9.0 - ANOTHER_NEW_RELEASE_MOVIE 12.0" );
+    CHECK( videoStore->printReceipt(movieGroup) == "Rental Record for Fred - A_NEW_RELEASE_MOVIE 9.0 - ANOTHER_NEW_RELEASE_MOVIE 12.0" );
 }

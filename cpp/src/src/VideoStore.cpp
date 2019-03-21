@@ -5,37 +5,57 @@
 #include "Movies.cpp"
 #include "User.cpp"
 
+
+class MoviePrinter
+{
+    
+};
+
+class Display
+{
+    
+    static std::string printPrice(double regularMovie) {
+        std::stringstream stream;
+        stream << std::fixed << std::setprecision(1) << regularMovie;
+        return stream.str();
+    }
+    
+public:
+    std::string print(std::list<Movie*> regularMovieGroup,std::string name)
+    {
+        std::string result = "Rental Record for "+name+" - ";
+        
+        int i=0;
+        for (Movie* regularMovie : regularMovieGroup)
+        {
+            std::string separator = (i==0)?"":" - ";
+            result +=  std::string(separator +regularMovie->get_title() +" "+ printPrice(regularMovie->price()));
+            i++;
+        }
+        return result;
+
+    }
+    
+};
+
+
 class VideoStore
 {
 private:
     User *user;
-    std::list<Movie*> regularMovieGroup;
+    Display *display;
     
-    
-    static std::string printPrice(Movie *regularMovie) {
-        std::stringstream stream;
-        stream << std::fixed << std::setprecision(1) << regularMovie->price();
-        return stream.str();
-        
-    }
 public:
     
-    VideoStore(User *user,std::list<Movie*> regularMovieGroup)
+    VideoStore(User *user,Display *display)
     {
         this->user = user;
-        this->regularMovieGroup = regularMovieGroup;
+        this->display = display;
     }
     
-    std::string printReceipt()
+    std::string printReceipt(std::list<Movie*> regularMovieGroup)
     {
-        std::string result = "Rental Record for "+this->user->get_name()+" - ";
-        int i=0;
-        for (Movie* regularMovie : this->regularMovieGroup)
-        {
-            std::string separator = (i==0)?"":" - ";
-            result += std::string(separator +regularMovie->get_title()+" "+printPrice(regularMovie));
-            i++;
-        }
-        return result;
+        return display->print(regularMovieGroup,this->user->get_name());
     }
 };
+
