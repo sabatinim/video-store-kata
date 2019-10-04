@@ -6,13 +6,30 @@ class VideoStoreTests extends FlatSpec with Matchers with Inside {
 
   case class NewReleaseMovie(title: String, price: String = "3.0") extends Movie
 
+  case class RegularMovie(title: String, price: String = "2.0") extends Movie
+
   case class User(name: String)
 
-  def receiptFor(u: User, m: NewReleaseMovie, days: Int)(implicit priceFun: Movie => String): String = {
+  def receiptFor(u: User, m: Movie, days: Int): String = {
 
-    val newPrice = priceFun(m).toDouble * days
+    val titleFor = (m: Movie) => {
+      m match {
+        case NewReleaseMovie(title, _) => title
+        case RegularMovie(title, _) => title
+      }
+    }
+
+    val priceFor = (m: Movie, days: Int) => {
+      m match {
+        case NewReleaseMovie(_, price) => price.toDouble * days
+        case RegularMovie(_, price) => price.toDouble * days
+      }
+    }
+
+    val newPrice: Double = priceFor(m, days)
+
     "Rental Record for " + u.name + "\n" +
-      "- " + m.title + " " + newPrice +
+      "- " + titleFor(m) + " " + newPrice +
       "You owed " + newPrice + "\n" +
       "You earned 0 frequent renter points"
   }
@@ -20,16 +37,23 @@ class VideoStoreTests extends FlatSpec with Matchers with Inside {
 
   it should "cost 6.0 EUR rent a new release movie for two day" in {
 
-    implicit val priceFor: Movie => String = {
-      case NewReleaseMovie(_, price) => price
-    }
-
     val actualReceipt = receiptFor(User("A_USER"), NewReleaseMovie("TITLE"), 2)
 
     actualReceipt shouldBe
       "Rental Record for A_USER\n" +
         "- TITLE 6.0" +
         "You owed 6.0\n" +
+        "You earned 0 frequent renter points"
+  }
+
+  it should "cost 2.0 EUR rent a regular movie for one day" in {
+
+    val actualReceipt = receiptFor(User("A_USER"), RegularMovie("TITLE"), 1)
+
+    actualReceipt shouldBe
+      "Rental Record for A_USER\n" +
+        "- TITLE 2.0" +
+        "You owed 2.0\n" +
         "You earned 0 frequent renter points"
   }
 }
