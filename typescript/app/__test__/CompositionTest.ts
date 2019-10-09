@@ -1,4 +1,4 @@
-import {compose} from "../source/domain/movie/price";
+import {compose} from "../source/domain/compose";
 
 describe('Video Store', function () {
 

@@ -10,26 +10,22 @@ export class MoviePrices {
 
 export class Rental {
     rentalDays: number;
-    m: Movie;
+    m: MovieConfiguration;
 
-    constructor(rentalDays: number, m: Movie) {
+    constructor(rentalDays: number, m: MovieConfiguration) {
         this.rentalDays = rentalDays;
         this.m = m;
     }
-
 }
 
-export interface Movie {
+interface MovieConfiguration {
     price(): number
-
     minRentDays(): number;
-
     additionaCostPerDay(): number;
-
     title(): string;
 }
 
-export class NewReleaseMovie implements Movie {
+export class NewReleaseConfiguration implements MovieConfiguration {
     private _title: string;
     constructor(title: string) {
         this._title = title;
@@ -54,7 +50,7 @@ export class NewReleaseMovie implements Movie {
     }
 }
 
-export class ChildrenMovie implements Movie {
+export class ChildrenConfiguration implements MovieConfiguration {
     price(): number {
         return 1.5;
     }

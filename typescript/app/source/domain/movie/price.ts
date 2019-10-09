@@ -1,4 +1,5 @@
-import {MoviePrices, Rental} from "./movie";
+import {MoviePrices, Rental} from "./videoStore";
+import {compose} from "../compose";
 
 const additionalCostFor = (rental: Rental): MoviePrices => {
     let additionalCost = 0.0;
@@ -11,13 +12,6 @@ const additionalCostFor = (rental: Rental): MoviePrices => {
 
 const priceFor = (moviePrices: MoviePrices): number => {
     return moviePrices.movieBasePrice + moviePrices.additionalCost
-};
-
-export const compose = <TX,TY,R>(
-    f: (x: TX) => TY,
-    g: (y: TY) => R):
-    (x: TX) => R => {
-    return (x) => g(f(x))
 };
 
 export const moviePriceFor: (x: Rental) => number = compose(additionalCostFor,priceFor)
