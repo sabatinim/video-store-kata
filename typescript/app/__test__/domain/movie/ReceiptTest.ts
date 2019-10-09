@@ -1,5 +1,5 @@
 import {NewReleaseConfiguration, Rental} from "../../../source/domain/movie/videoStore"
-import {bodyMoviesReceiptFor} from "../../../source/domain/movie/receipt";
+import {bodyMoviesReceiptFor, receiptFor} from "../../../source/domain/movie/receipt";
 
 describe('Video Store', function () {
 
@@ -8,10 +8,11 @@ describe('Video Store', function () {
         const aRental = new Rental(1, new NewReleaseConfiguration("A_NEW_RELEASE_TITLE"));
         const anotherRental = new Rental(1, new NewReleaseConfiguration("ANOTHER_NEW_RELEASE_TITLE"));
 
-        const receipt = bodyMoviesReceiptFor(Array.of(aRental, anotherRental));
+        const receipt = receiptFor(Array.of(aRental, anotherRental));
 
         expect(receipt).toEqual(
             "- A_NEW_RELEASE_TITLE 3.0\n" +
-            "- ANOTHER_NEW_RELEASE_TITLE 3.0")
+            "- ANOTHER_NEW_RELEASE_TITLE 3.0\n" +
+            "Total 6.0")
     });
 });
