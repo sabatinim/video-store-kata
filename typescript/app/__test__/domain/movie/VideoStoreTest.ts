@@ -1,22 +1,9 @@
 import {ChildrenMovie, NewReleaseMovie, Rental} from "../../../source/domain/movie/movie"
-import {compose, moviePriceFor} from "../../../source/domain/movie/price";
+import {moviePriceFor} from "../../../source/domain/movie/price";
 describe('Video Store', function () {
 
-    it('compose two function', () => {
-
-        let f = (x: string): string => `f(${x})`
-        let g = (x: string): string => `g(${x})`
-
-        let gfx: (x: string) => string = compose(f, g)
-
-        expect(gfx("value")).toEqual("g(f(value))")
-    });
-
-
     it('rent new release movie one day', () => {
-
         expect(moviePriceFor(new Rental(1, new NewReleaseMovie()))).toEqual(3.0)
-
     });
 
     it('rent new release movie two day', () => {
