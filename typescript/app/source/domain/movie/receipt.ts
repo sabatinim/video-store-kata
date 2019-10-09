@@ -36,11 +36,12 @@ const movieReceiptFrom: (x: Rental) => string =
 export const bodyMoviesReceiptFor: (rentals: Rental[]) => string =
     textMoviesReceiptFrom(movieReceiptFrom)
 
-export const receiptFor = (user:string,rentals: Rental[]): string =>
+const textFooterReceiptFrom1 = textFooterReceiptFrom(moviesPriceFor);
+export const receiptFor = (user:string, rentals: Rental[]): string =>
 
     `Hello ${user} this is your receipt\n`+
     bodyMoviesReceiptFor(rentals) +
     "\n" +
-    textFooterReceiptFrom(moviesPriceFor)(rentals)+
+    textFooterReceiptFrom1(rentals)+
     "\n"+
     textFooterRentalPointReceiptFrom(calculateRentalPoints)(rentals)
