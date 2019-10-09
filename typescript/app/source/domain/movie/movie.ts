@@ -30,6 +30,11 @@ export interface Movie {
 }
 
 export class NewReleaseMovie implements Movie {
+    private _title: string;
+    constructor(title: string) {
+        this._title = title;
+    }
+
     public basePrice = 3.0;
 
     price(): number {
@@ -45,7 +50,7 @@ export class NewReleaseMovie implements Movie {
     }
 
     title(): string {
-        return "A_NEW_RELEASE_TITLE";
+        return this._title;
     }
 }
 

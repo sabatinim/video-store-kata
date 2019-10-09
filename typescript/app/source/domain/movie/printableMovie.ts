@@ -10,7 +10,6 @@ export class PrintableMovie {
     }
 }
 
-
 export const toPrintableMovie = (
     priceFun:(r:Rental) => number):
     (r:Rental)=> PrintableMovie =>{
