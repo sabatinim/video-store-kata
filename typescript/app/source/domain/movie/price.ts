@@ -1,6 +1,5 @@
 import {MoviePrices, Rental} from "./videoStore";
 import {compose} from "../compose";
-import {PrintableMovie} from "./receipt";
 
 const additionalCostFor = (rental: Rental): MoviePrices => {
     let additionalCost = 0.0;
@@ -20,6 +19,5 @@ export const totalPrice = (moviePriceFor:(r:Rental) => number):
     return (rentals) => rentals.map(r=>moviePriceFor(r)).reduce((x,y)=>x+y);
 }
 
-
 export const moviePriceFor: (x: Rental) => number = compose(additionalCostFor,priceFor)
-export const totalMoviePrice = totalPrice(moviePriceFor);
+export const moviesPriceFor: (rentals: Rental[]) => number = totalPrice(moviePriceFor);

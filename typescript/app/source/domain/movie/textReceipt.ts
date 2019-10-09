@@ -18,3 +18,8 @@ export const textFooterReceiptFrom = (
 
     return (rentals) => `Total ${totalPrice(rentals).toPrecision(2)}`
 };
+export const textFooterRentalPointReceiptFrom = (
+    calculateRentalPoint: (rentals: Rental[]) => number):
+    (rentals: Rental[]) => string => {
+    return (rentals) => `Total Rental points ${calculateRentalPoint(rentals)}`
+};

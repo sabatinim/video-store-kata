@@ -1,7 +1,13 @@
 import {Rental} from "./videoStore";
-import {moviePriceFor, totalMoviePrice, totalPrice} from "./price";
+import {moviePriceFor, moviesPriceFor, totalPrice} from "./price";
 import {compose} from "../compose";
-import {textFooterReceiptFrom, textMovieReceiptFrom, textMoviesReceiptFrom} from "./textReceipt";
+import {
+    textFooterReceiptFrom,
+    textFooterRentalPointReceiptFrom,
+    textMovieReceiptFrom,
+    textMoviesReceiptFrom
+} from "./textReceipt";
+import {calculateRentalPoints} from "./rentPoint";
 
 export class PrintableMovie {
     title: string;
@@ -30,8 +36,11 @@ const movieReceiptFrom: (x: Rental) => string =
 export const bodyMoviesReceiptFor: (rentals: Rental[]) => string =
     textMoviesReceiptFrom(movieReceiptFrom)
 
-export const receiptFor = (rentals: Rental[]): string =>
+export const receiptFor = (user:string,rentals: Rental[]): string =>
 
+    `Hello ${user} this is your receipt\n`+
     bodyMoviesReceiptFor(rentals) +
     "\n" +
-    textFooterReceiptFrom(totalMoviePrice)(rentals)
+    textFooterReceiptFrom(moviesPriceFor)(rentals)+
+    "\n"+
+    textFooterRentalPointReceiptFrom(calculateRentalPoints)(rentals)

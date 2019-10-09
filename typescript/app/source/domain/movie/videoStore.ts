@@ -23,6 +23,7 @@ interface MovieConfiguration {
     minRentDays(): number;
     additionaCostPerDay(): number;
     title(): string;
+    additionalRenterPoint():number;
 }
 
 export class NewReleaseConfiguration implements MovieConfiguration {
@@ -48,6 +49,10 @@ export class NewReleaseConfiguration implements MovieConfiguration {
     title(): string {
         return this._title;
     }
+
+    additionalRenterPoint(): number {
+        return 1;
+    }
 }
 
 export class ChildrenConfiguration implements MovieConfiguration {
@@ -65,5 +70,9 @@ export class ChildrenConfiguration implements MovieConfiguration {
 
     title(): string {
         return "";
+    }
+
+    additionalRenterPoint(): number {
+        return 0;
     }
 }
