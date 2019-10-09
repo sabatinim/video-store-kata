@@ -37,6 +37,7 @@ export const bodyMoviesReceiptFor: (rentals: Rental[]) => string =
     textMoviesReceiptFrom(movieReceiptFrom)
 
 const textFooterReceiptFrom1 = textFooterReceiptFrom(moviesPriceFor);
+//REFACTORING: inject header body and footer receipt
 export const receiptFor = (user:string, rentals: Rental[]): string =>
 
     `Hello ${user} this is your receipt\n`+
