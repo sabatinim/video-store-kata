@@ -25,6 +25,8 @@ export interface Movie {
     minRentDays(): number;
 
     additionaCostPerDay(): number;
+
+    title(): string;
 }
 
 export class NewReleaseMovie implements Movie {
@@ -41,6 +43,10 @@ export class NewReleaseMovie implements Movie {
     additionaCostPerDay(): number {
         return 3.0;
     }
+
+    title(): string {
+        return "A_NEW_RELEASE_TITLE";
+    }
 }
 
 export class ChildrenMovie implements Movie {
@@ -54,5 +60,9 @@ export class ChildrenMovie implements Movie {
 
     additionaCostPerDay(): number {
         return 1.5;
+    }
+
+    title(): string {
+        return "";
     }
 }
