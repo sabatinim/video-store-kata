@@ -1,3 +1,4 @@
 /dist/__test__/
 /dist/source/
 /node_modules/
+/coverage/
