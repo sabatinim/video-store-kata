@@ -1,9 +1,10 @@
 import {ChildrenConfiguration, NewReleaseConfiguration, Rental} from "../../../source/domain/movie/videoStore"
 import {receiptFor} from "../../../source/domain/movie/textReceipt";
+import {htmlReceiptFor} from "../../../source/domain/movie/htmlReceipt";
 
 describe('Video Store', function () {
 
-    it('print two new release movie rent for one day', () => {
+    it('print plain text receipt', () => {
 
         const aRental = new Rental(1, new NewReleaseConfiguration("A_NEW_RELEASE_TITLE"));
         const anotherRental = new Rental(1, new NewReleaseConfiguration("ANOTHER_NEW_RELEASE_TITLE"));
@@ -21,4 +22,30 @@ describe('Video Store', function () {
     });
 
 
+    it('print html receipt', () => {
+
+        const aRental = new Rental(1, new NewReleaseConfiguration("A_NEW_RELEASE_TITLE"));
+        const anotherRental = new Rental(1, new NewReleaseConfiguration("ANOTHER_NEW_RELEASE_TITLE"));
+        const aThirdRental = new Rental(1, new ChildrenConfiguration("A_CHILDREN_RELEASE_TITLE"));
+
+        const receipt = htmlReceiptFor("Marco",Array.of(aRental, anotherRental,aThirdRental));
+
+        expect(receipt).toEqual(
+            "<!DOCTYPE html>\n" +
+            "<html>\n" +
+            "<head>\n" +
+            "<title>Video store - statement for Marco</title>\n" +
+            "</head>\n" +
+            "<body>\n" +
+            "<h1>Rental Record for Marco</h1>\n" +
+            "<ul>\n" +
+            "<li>A_NEW_RELEASE_TITLE 3.0</li>\n" +
+            "<li>ANOTHER_NEW_RELEASE_TITLE 3.0</li>\n" +
+            "<li>A_CHILDREN_RELEASE_TITLE 1.5</li>\n" +
+            "</ul>\n" +
+            "<br>You owed 7.5\n" +
+            "<br>You earned 3 frequent renter points\n" +
+            "</body>\n" +
+            "</html>")
+    });
 });
