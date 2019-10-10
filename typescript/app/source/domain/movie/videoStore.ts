@@ -56,6 +56,11 @@ export class NewReleaseConfiguration implements MovieConfiguration {
 }
 
 export class ChildrenConfiguration implements MovieConfiguration {
+    private _title: string;
+    constructor(title: string) {
+        this._title = title;
+    }
+
     price(): number {
         return 1.5;
     }
@@ -69,7 +74,7 @@ export class ChildrenConfiguration implements MovieConfiguration {
     }
 
     title(): string {
-        return "";
+        return this._title;
     }
 
     additionalRenterPoint(): number {

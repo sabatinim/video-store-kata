@@ -12,7 +12,7 @@ describe('Renter Points', function () {
     it('two new release movie one day', () => {
         let one = new Rental(1, new NewReleaseConfiguration("::title::"));
         let two = new Rental(7, new NewReleaseConfiguration("::anothertitle::"));
-        let three = new Rental(1, new ChildrenConfiguration());
+        let three = new Rental(1, new ChildrenConfiguration("::children title::"));
 
         expect(calculateRentalPoints(Array.of(one,two,three))).toEqual(4)
     });
