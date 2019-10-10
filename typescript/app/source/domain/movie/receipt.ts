@@ -1,13 +1,5 @@
 import {Rental} from "./videoStore";
-import {moviePriceFor, moviesPriceFor, totalPrice} from "./price";
-import {compose} from "../compose";
-import {
-    textFooterReceiptFrom,
-    textFooterRentalPointReceiptFrom,
-    textMovieReceiptFrom,
-    textMoviesReceiptFrom
-} from "./textReceipt";
-import {calculateRentalPoints} from "./rentPoint";
+import {moviePriceFor} from "./price";
 
 export class PrintableMovie {
     title: string;
@@ -25,24 +17,14 @@ const to = (
     return (r) => new PrintableMovie(r.m.title(), priceFun(r).toPrecision(2));
 };
 
-const printableMovieFrom: (r: Rental) => PrintableMovie =
+export const printableMovieFrom: (r: Rental) => PrintableMovie =
     to(moviePriceFor);
 
-const movieReceiptFrom: (x: Rental) => string =
-    compose(
-        printableMovieFrom,
-        textMovieReceiptFrom);
+export const genericReceiptFor =
 
-export const bodyMoviesReceiptFor: (rentals: Rental[]) => string =
-    textMoviesReceiptFrom(movieReceiptFrom)
+    (header: (user: string) => string,
+     f: ((rentals: Rental[]) => string)[]):
+        (user: string, rentals: Rental[]) => string =>
 
-const textFooterReceiptFrom1 = textFooterReceiptFrom(moviesPriceFor);
-//REFACTORING: inject header body and footer receipt
-export const receiptFor = (user:string, rentals: Rental[]): string =>
-
-    `Hello ${user} this is your receipt\n`+
-    bodyMoviesReceiptFor(rentals) +
-    "\n" +
-    textFooterReceiptFrom1(rentals)+
-    "\n"+
-    textFooterRentalPointReceiptFrom(calculateRentalPoints)(rentals)
+        (user, rentals) => header(user) +
+            f.map(f => f(rentals)).join("\n");

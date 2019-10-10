@@ -1,5 +1,5 @@
 import {NewReleaseConfiguration, Rental} from "../../../source/domain/movie/videoStore"
-import {receiptFor} from "../../../source/domain/movie/receipt";
+import {receiptFor} from "../../../source/domain/movie/textReceipt";
 
 describe('Video Store', function () {
 
