@@ -1,59 +1,58 @@
 import org.scalatest.{FlatSpec, Inside, Matchers}
+import scala.math.BigDecimal
 
 class VideoStoreTests extends FlatSpec with Matchers with Inside {
 
-  trait Movie
+  case class NewReleaseMovie(price: BigDecimal = BigDecimal(3.0), minRentDays: Int = 1, additionaCostPerDay: BigDecimal = BigDecimal(3.0))
 
-  case class NewReleaseMovie(title: String, price: String = "3.0") extends Movie
+  case class Rental(m: NewReleaseMovie, rentalDays: Int)
 
-  case class RegularMovie(title: String, price: String = "2.0") extends Movie
+  case class MoviePrices(moviePrice: BigDecimal, addidionalCost: BigDecimal)
 
-  case class User(name: String)
+  def compose[TF, TG,R](f: TF => TG)(g: TG => R): TF => R = x => g(f(x))
 
-  def receiptFor(u: User, m: Movie, days: Int): String = {
+  val priceFor = (mp: MoviePrices) =>
+    mp.moviePrice.+(mp.addidionalCost)
 
-    val titleFor = (m: Movie) => {
-      m match {
-        case NewReleaseMovie(title, _) => title
-        case RegularMovie(title, _) => title
-      }
+  val additionalCostFor = (r: Rental) => {
+    var additionalCost = BigDecimal(0.0)
+    if (r.rentalDays > r.m.minRentDays) {
+      val additionalDays = r.rentalDays - r.m.minRentDays
+      additionalCost = r.m.additionaCostPerDay.*(BigDecimal(additionalDays))
+    }
+    MoviePrices(r.m.price, additionalCost)
+  }
+
+  val calculatePrice: Rental => BigDecimal = compose(additionalCostFor)(priceFor)
+
+  it should "no additional cost" in {
+    val price = additionalCostFor(Rental(NewReleaseMovie(), 1))
+    price shouldBe MoviePrices(BigDecimal(3.0), BigDecimal(0.0))
+  }
+
+  it should "additional cost for more than one day rent" in {
+    val price = additionalCostFor(Rental(NewReleaseMovie(), 3))
+    price shouldBe MoviePrices(BigDecimal(3.0), BigDecimal(6.0))
+  }
+
+    it should "new release movie two day" in {
+      val price = calculatePrice(Rental(NewReleaseMovie(),2))
+      price shouldBe 6.0
     }
 
-    val priceFor = (m: Movie, days: Int) => {
-      m match {
-        case NewReleaseMovie(_, price) => price.toDouble * days
-        case RegularMovie(_, price) => price.toDouble * days
-      }
-    }
-
-    val newPrice: Double = priceFor(m, days)
-
-    "Rental Record for " + u.name + "\n" +
-      "- " + titleFor(m) + " " + newPrice +
-      "You owed " + newPrice + "\n" +
-      "You earned 0 frequent renter points"
+  it should "new release movie three day" in {
+    val price = calculatePrice(Rental(NewReleaseMovie(),3))
+    price shouldBe 9.0
   }
 
 
-  it should "cost 6.0 EUR rent a new release movie for two day" in {
+  it should "compose two function" in {
 
-    val actualReceipt = receiptFor(User("A_USER"), NewReleaseMovie("TITLE"), 2)
-
-    actualReceipt shouldBe
-      "Rental Record for A_USER\n" +
-        "- TITLE 6.0" +
-        "You owed 6.0\n" +
-        "You earned 0 frequent renter points"
-  }
-
-  it should "cost 2.0 EUR rent a regular movie for one day" in {
-
-    val actualReceipt = receiptFor(User("A_USER"), RegularMovie("TITLE"), 1)
-
-    actualReceipt shouldBe
-      "Rental Record for A_USER\n" +
-        "- TITLE 2.0" +
-        "You owed 2.0\n" +
-        "You earned 0 frequent renter points"
+    val f: String => String = (x: String) => s"f(${x})"
+    val g: String => String = (x: String) => s"g(${x})"
+    val c: String => String = g compose f
+    val gfx = compose(f)(g)
+    gfx("x") shouldBe "g(f(x))"
+    c("x") shouldBe "g(f(x))"
   }
 }
