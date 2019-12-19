@@ -9,7 +9,7 @@ const rentPointsFor =
 const rentPointFor = (r:Rental):number=>{
     let baserenterPoint = 1;
     if(r.rentalDays>1){
-        return baserenterPoint+ r.m.additionalRenterPoint()
+        return baserenterPoint+ r.mc.additionalRenterPoint
     }
     return baserenterPoint
 };

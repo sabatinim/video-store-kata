@@ -3,11 +3,11 @@ import {compose} from "../compose";
 
 const additionalCostFor = (rental: Rental): MoviePrices => {
     let additionalCost = 0.0;
-    if (rental.rentalDays > rental.m.minRentDays()) {
-        const additionalDays = rental.rentalDays - rental.m.minRentDays()
-        additionalCost = rental.m.additionaCostPerDay() * additionalDays;
+    if (rental.rentalDays > rental.mc.minRentDays) {
+        const additionalDays = rental.rentalDays - rental.mc.minRentDays
+        additionalCost = rental.mc.additionaCostPerDay * additionalDays;
     }
-    return new MoviePrices(additionalCost, rental.m.price());
+    return new MoviePrices(additionalCost, rental.mc.price);
 }
 
 const priceFor = (moviePrices: MoviePrices): number => {

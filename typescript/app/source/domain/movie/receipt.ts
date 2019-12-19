@@ -14,7 +14,7 @@ export class PrintableMovie {
 const to = (
     priceFun: (r: Rental) => number):
     (r: Rental) => PrintableMovie => {
-    return (r) => new PrintableMovie(r.m.title(), priceFun(r).toPrecision(2));
+    return (r) => new PrintableMovie(r.mc.title, priceFun(r).toPrecision(2));
 };
 
 export const printableMovieFrom: (r: Rental) => PrintableMovie =

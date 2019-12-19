@@ -1,4 +1,8 @@
-import {ChildrenConfiguration, NewReleaseConfiguration, Rental} from "../../../source/domain/movie/videoStore"
+import {
+    childrenConfiguration,
+    newReleaseConfiguration,
+    Rental
+} from "../../../source/domain/movie/videoStore"
 import {receiptFor} from "../../../source/domain/movie/textReceipt";
 import {htmlReceiptFor} from "../../../source/domain/movie/htmlReceipt";
 
@@ -6,9 +10,9 @@ describe('Video Store', function () {
 
     it('print plain text receipt', () => {
 
-        const aRental = new Rental(1, new NewReleaseConfiguration("A_NEW_RELEASE_TITLE"));
-        const anotherRental = new Rental(1, new NewReleaseConfiguration("ANOTHER_NEW_RELEASE_TITLE"));
-        const aThirdRental = new Rental(1, new ChildrenConfiguration("A_CHILDREN_RELEASE_TITLE"));
+        const aRental = new Rental(1, newReleaseConfiguration("A_NEW_RELEASE_TITLE"));
+        const anotherRental = new Rental(1, newReleaseConfiguration("ANOTHER_NEW_RELEASE_TITLE"));
+        const aThirdRental = new Rental(1, childrenConfiguration("A_CHILDREN_RELEASE_TITLE"));
 
         const receipt = receiptFor("Marco",Array.of(aRental, anotherRental,aThirdRental));
 
@@ -24,9 +28,9 @@ describe('Video Store', function () {
 
     it('print html receipt', () => {
 
-        const aRental = new Rental(1, new NewReleaseConfiguration("A_NEW_RELEASE_TITLE"));
-        const anotherRental = new Rental(1, new NewReleaseConfiguration("ANOTHER_NEW_RELEASE_TITLE"));
-        const aThirdRental = new Rental(1, new ChildrenConfiguration("A_CHILDREN_RELEASE_TITLE"));
+        const aRental = new Rental(1, newReleaseConfiguration("A_NEW_RELEASE_TITLE"));
+        const anotherRental = new Rental(1, newReleaseConfiguration("ANOTHER_NEW_RELEASE_TITLE"));
+        const aThirdRental = new Rental(1, childrenConfiguration("A_CHILDREN_RELEASE_TITLE"));
 
         const receipt = htmlReceiptFor("Marco",Array.of(aRental, anotherRental,aThirdRental));
 

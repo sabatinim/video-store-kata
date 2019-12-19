@@ -1,10 +1,10 @@
-import {NewReleaseConfiguration, Rental} from "./domain/movie/videoStore";
+import {newReleaseConfiguration, Rental} from "./domain/movie/videoStore";
 import {htmlReceiptFor} from "./domain/movie/htmlReceipt";
 import {receiptFor} from "./domain/movie/textReceipt";
 
-let aRental = new Rental(1, new NewReleaseConfiguration("Harry Potter"));
-let anotherRental = new Rental(1, new NewReleaseConfiguration("Mission Impossible"));
-let thirdRental = new Rental(4, new NewReleaseConfiguration("Peppa pig"));
+let aRental = new Rental(1, newReleaseConfiguration("Harry Potter"));
+let anotherRental = new Rental(1, newReleaseConfiguration("Mission Impossible"));
+let thirdRental = new Rental(4, newReleaseConfiguration("Peppa pig"));
 console.log("------ PLAIN TEXT --------")
 console.log(
     receiptFor("Text Receipt User",
