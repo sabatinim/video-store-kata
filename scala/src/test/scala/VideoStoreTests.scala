@@ -11,8 +11,9 @@ class VideoStoreTests extends FlatSpec with Matchers with Inside {
 
   def compose[TF, TG,R](f: TF => TG)(g: TG => R): TF => R = x => g(f(x))
 
-  val priceFor = (mp: MoviePrices) =>
-    mp.moviePrice.+(mp.addidionalCost)
+  type MoviePricesToBigDecimal = MoviePrices => BigDecimal
+
+  val priceFor: MoviePricesToBigDecimal = mp => mp.moviePrice.+(mp.addidionalCost)
 
   val additionalCostFor = (r: Rental) => {
     var additionalCost = BigDecimal(0.0)
@@ -46,13 +47,11 @@ class VideoStoreTests extends FlatSpec with Matchers with Inside {
   }
 
 
-  it should "compose two function" in {
 
+  it should "compose two function" in {
     val f: String => String = (x: String) => s"f(${x})"
     val g: String => String = (x: String) => s"g(${x})"
-    val c: String => String = g compose f
-    val gfx = compose(f)(g)
+    val gfx = g compose f
     gfx("x") shouldBe "g(f(x))"
-    c("x") shouldBe "g(f(x))"
   }
 }
