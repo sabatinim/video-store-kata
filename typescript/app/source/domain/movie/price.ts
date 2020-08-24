@@ -19,5 +19,5 @@ export const totalPrice = (moviePriceFor:(r:Rental) => number):
     return (rentals) => rentals.map(r=>moviePriceFor(r)).reduce((x,y)=>x+y);
 }
 
-export const moviePriceFor: (x: Rental) => number = compose(additionalCostFor,priceFor)
-export const moviesPriceFor: (rentals: Rental[]) => number = totalPrice(moviePriceFor);
+export const calculateMoviePrice: (x: Rental) => number = compose(additionalCostFor,priceFor)
+export const calculateTotalMoviesPrice: (rentals: Rental[]) => number = totalPrice(calculateMoviePrice);

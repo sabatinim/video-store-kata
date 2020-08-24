@@ -1,5 +1,5 @@
 import {Rental} from "./videoStore";
-import {moviePriceFor} from "./price";
+import {calculateMoviePrice} from "./price";
 
 export class PrintableMovie {
     title: string;
@@ -11,20 +11,22 @@ export class PrintableMovie {
     }
 }
 
-const to = (
-    priceFun: (r: Rental) => number):
-    (r: Rental) => PrintableMovie => {
-    return (r) => new PrintableMovie(r.mc.title, priceFun(r).toPrecision(2));
-};
+const printableMovieWith =
+    (calculateMoviePrice: (r: Rental) => number) =>
+        (r: Rental) => new PrintableMovie(r.mc.title, calculateMoviePrice(r).toPrecision(2));
 
-export const printableMovieFrom: (r: Rental) => PrintableMovie =
-    to(moviePriceFor);
+export const printableMovie: (r: Rental) => PrintableMovie =
+    printableMovieWith(calculateMoviePrice);
 
-export const genericReceiptFor =
 
+export const genericReceipt =
     (header: (user: string) => string,
-     f: ((rentals: Rental[]) => string)[]):
-        (user: string, rentals: Rental[]) => string =>
+     body: (rentals: Rental[]) => string,
+     footer: (rentals: Rental[]) => string,
+     rentalPoint: (rentals: Rental[]) => string) =>
 
-        (user, rentals) => header(user) +
-            f.map(f => f(rentals)).join("\n");
+        (user:string, rentals:Rental[]) =>
+            header(user) +
+            body(rentals) + "\n" +
+            footer(rentals) + "\n" +
+            rentalPoint(rentals)

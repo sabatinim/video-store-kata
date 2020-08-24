@@ -1,45 +1,42 @@
-import {genericReceiptFor, PrintableMovie, printableMovieFrom} from "./receipt";
+import {genericReceipt, PrintableMovie, printableMovie} from "./receipt";
 import {Rental} from "./videoStore";
 import {compose} from "../compose";
 import {calculateRentalPoints} from "./rentPoint";
-import {moviesPriceFor} from "./price";
+import {calculateTotalMoviesPrice} from "./price";
 
-export const textMovieReceiptFrom = (m: PrintableMovie): string => {
-    return `- ${m.title} ${m.priceRepresentation}`
-};
+const textMovieReceipt = (m: PrintableMovie): string =>
+     `- ${m.title} ${m.priceRepresentation}`
 
-export const textMoviesReceiptFrom = (
+const textMoviesReceiptWith = (
     movieReceiptFunc: (x: Rental) => string):
-    (rentals: Rental[]) => string => {
+    (rentals: Rental[]) => string =>
+     (rentals) => rentals.map(r => movieReceiptFunc(r)).join("\n")
 
-    return (rentals) => rentals.map(r => movieReceiptFunc(r)).join("\n")
-};
-
-export const textFooterReceiptFrom = (
+const textFooterReceiptWith = (
     totalPrice: (rentals: Rental[]) => number):
-    (rentals: Rental[]) => string => {
+    (rentals: Rental[]) => string =>
+     (rentals) => `Total ${totalPrice(rentals).toPrecision(2)}`
 
-    return (rentals) => `Total ${totalPrice(rentals).toPrecision(2)}`
-};
-export const textFooterRentalPointReceiptFrom = (
+const textFooterRentalPointReceiptWith = (
     calculateRentalPoint: (rentals: Rental[]) => number):
-    (rentals: Rental[]) => string => {
-    return (rentals) => `Total Rental points ${calculateRentalPoint(rentals)}`
-};
+    (rentals: Rental[]) => string =>
+     (rentals) => `Total Rental points ${calculateRentalPoint(rentals)}`
 
-const movieReceiptFrom: (x: Rental) => string =
-    compose(
-        printableMovieFrom,
-        textMovieReceiptFrom);
+const textFooterRentalPointReceipt =
+    textFooterRentalPointReceiptWith(calculateRentalPoints);
 
-const footerRentalPointReceiptFrom =
-    textFooterRentalPointReceiptFrom(calculateRentalPoints);
+const textFooterReceipt: (rentals: Rental[]) => string =
+    textFooterReceiptWith(calculateTotalMoviesPrice);
 
-const footerReceiptFrom: (rentals: Rental[]) => string =
-    textFooterReceiptFrom(moviesPriceFor);
-
-export const moviesReceiptFor: (rentals: Rental[]) => string =
-    textMoviesReceiptFrom(movieReceiptFrom)
+const textMoviesReceipt: (rentals: Rental[]) => string =
+    textMoviesReceiptWith(compose(
+        printableMovie,
+        textMovieReceipt))
 
 const textHeader = (user: string) => `Hello ${user} this is your receipt\n`;
-export const receiptFor: (user: string, rentals: Rental[]) => string = genericReceiptFor(textHeader, Array.of(moviesReceiptFor, footerReceiptFrom, footerRentalPointReceiptFrom))
+export const printTextReceipt: (user: string, rentals: Rental[]) => string =
+    genericReceipt(
+        textHeader,
+        textMoviesReceipt,
+        textFooterReceipt,
+        textFooterRentalPointReceipt)
