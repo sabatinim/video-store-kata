@@ -1,7 +1,7 @@
 import {MoviePrices, Rental} from "./videoStore";
 import {compose} from "../compose";
 
-const additionalCostFor = (rental: Rental): MoviePrices => {
+const calculateAdditionalCost = (rental: Rental): MoviePrices => {
     let additionalCost = 0.0;
     if (rental.rentalDays > rental.mc.minRentDays) {
         const additionalDays = rental.rentalDays - rental.mc.minRentDays
@@ -10,14 +10,12 @@ const additionalCostFor = (rental: Rental): MoviePrices => {
     return new MoviePrices(additionalCost, rental.mc.price);
 }
 
-const priceFor = (moviePrices: MoviePrices): number => {
-    return moviePrices.movieBasePrice + moviePrices.additionalCost
-};
+const calculatePrice = (moviePrices: MoviePrices): number =>
+     moviePrices.movieBasePrice + moviePrices.additionalCost
 
-export const totalPrice = (moviePriceFor:(r:Rental) => number):
-    (rentals:Rental[])=> number =>{
-    return (rentals) => rentals.map(r=>moviePriceFor(r)).reduce((x,y)=>x+y);
-}
+export const calculateTotalPriceWith =
+    (calculateMoviePrice:(r:Rental) => number) =>
+     (rentals:Rental[]) => rentals.map(calculateMoviePrice).reduce((x,y)=>x+y)
 
-export const calculateMoviePrice: (x: Rental) => number = compose(additionalCostFor,priceFor)
-export const calculateTotalMoviesPrice: (rentals: Rental[]) => number = totalPrice(calculateMoviePrice);
+export const calculateSingleMoviePrice: (x: Rental) => number = compose(calculateAdditionalCost,calculatePrice)
+export const calculateTotalMoviesPrice: (rentals: Rental[]) => number = calculateTotalPriceWith(calculateSingleMoviePrice)

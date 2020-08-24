@@ -1,5 +1,5 @@
 import {Rental} from "./videoStore";
-import {calculateMoviePrice} from "./price";
+import {calculateSingleMoviePrice} from "./price";
 
 export class PrintableMovie {
     title: string;
@@ -16,7 +16,7 @@ const printableMovieWith =
         (r: Rental) => new PrintableMovie(r.mc.title, calculateMoviePrice(r).toPrecision(2));
 
 export const printableMovie: (r: Rental) => PrintableMovie =
-    printableMovieWith(calculateMoviePrice);
+    printableMovieWith(calculateSingleMoviePrice);
 
 
 export const genericReceipt =
@@ -24,9 +24,11 @@ export const genericReceipt =
      body: (rentals: Rental[]) => string,
      footer: (rentals: Rental[]) => string,
      rentalPoint: (rentals: Rental[]) => string) =>
+    {
 
-        (user:string, rentals:Rental[]) =>
+       return (user:string, rentals:Rental[]) =>
             header(user) +
             body(rentals) + "\n" +
             footer(rentals) + "\n" +
             rentalPoint(rentals)
+    }
