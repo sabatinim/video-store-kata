@@ -1,5 +1,5 @@
 
-Video store kata
+## Video store kata
 
 The idea of this kata is taken for the video store example from the book "Refactoring" of Martin Fowler  
 
@@ -23,7 +23,7 @@ if the video is a new release and is rented for more than 1 days he earns an add
 
 We want to print a statement for the videos purchased by a customer and his frequent renter points 
 
-Example: 
+### Example: 
 If the customer <i>Fred</i> purchase 
 - The game of thrones new release video for 1 day
 - Cinderella children video for 2 days
@@ -43,7 +43,7 @@ We want to print the following statement:
 <i>You earned 4 frequent renter points</i> 
 
 
-Additional requirement: 
+### Additional requirement: 
 
 The video store owner changed his mind and asked to have the receipt also in HTML
 
