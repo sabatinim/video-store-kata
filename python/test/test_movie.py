@@ -34,6 +34,21 @@ class MovieTests(unittest.TestCase):
         ).total_price()
         assert (total == 20.0)
 
+    def test_renter_point(self):
+        actual = RentGroup(Rent(1, children_movie())).rent_points()
+        assert (actual == 1)
+
+    def test_renter_point_new_release(self):
+        actual = RentGroup(Rent(3, base_movie())).rent_points()
+        assert (actual == 2)
+
+    def test_renter_point_multiple_movie(self):
+        actual = RentGroup(
+            Rent(1, children_movie()),
+            Rent(3, base_movie())
+        ).rent_points()
+        assert (actual == 3)
+
     def __assert_movie(self, expected, movie):
         for k, v in expected.items():
             p = Rent(k, movie).price_for()
