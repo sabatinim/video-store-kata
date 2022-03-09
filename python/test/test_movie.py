@@ -52,4 +52,4 @@ class MovieTests(unittest.TestCase):
     def __assert_movie(self, expected, movie):
         for k, v in expected.items():
             p = Rent(k, movie).price_for()
-            assert (p == v)
+            self.assertEqual(p, v)
