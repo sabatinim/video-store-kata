@@ -3,7 +3,7 @@ import unittest
 from lib.core import Rent, regular_movie, base_movie
 
 
-class AppTests(unittest.TestCase):
+class MovieTests(unittest.TestCase):
 
     def test_rent_regular_movie(self):
         self.__assert_movie({
