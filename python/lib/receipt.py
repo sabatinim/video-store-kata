@@ -4,7 +4,7 @@ from lib.core import RentGroup
 class PlainTextReceipt:
 
     def generate(self, user, rent_group: RentGroup) -> str:
-        movie_group = list(map(lambda t: f"- {t[0]} {t[1]}\n", rent_group.price_per_movie()))
+        movie_group = format(lambda t: f"- {t[0]} {t[1]}\n", rent_group)
 
         return f'Rental Record for {user}\n' \
                f'{"".join(movie_group)}\n' \
@@ -15,7 +15,7 @@ class PlainTextReceipt:
 class HtmlReceipt:
 
     def generate(self, user, rent_group: RentGroup) -> str:
-        movie_group = list(map(lambda t: f"<li>{t[0]} {t[1]}</li>\n", rent_group.price_per_movie()))
+        movie_group = format(lambda t: f"<li>{t[0]} {t[1]}</li>\n", rent_group)
 
         expected = '<!DOCTYPE html>\n' \
                    '<html>\n' \
@@ -32,3 +32,7 @@ class HtmlReceipt:
                    '</html>\n'
 
         return expected
+
+
+def format(func, rent_group: RentGroup):
+    return list(map(func, rent_group.price_per_movie()))
