@@ -1,6 +1,6 @@
 import unittest
 
-from lib.core import Rent, regular_movie, base_movie, children_movie, RentGroup
+from lib.core import MovieRent, regular_movie, base_movie, children_movie, MovieRentGroup
 
 
 class MovieTests(unittest.TestCase):
@@ -27,29 +27,29 @@ class MovieTests(unittest.TestCase):
         }, children_movie())
 
     def test_rent_multiple_type(self):
-        total = RentGroup(
-            Rent(4, children_movie()),
-            Rent(4, base_movie()),
-            Rent(4, regular_movie())
+        total = MovieRentGroup(
+            MovieRent(4, children_movie()),
+            MovieRent(4, base_movie()),
+            MovieRent(4, regular_movie())
         ).total_price()
         assert (total == 20.0)
 
     def test_renter_point(self):
-        actual = RentGroup(Rent(1, children_movie())).rent_points()
+        actual = MovieRentGroup(MovieRent(1, children_movie())).rent_points()
         assert (actual == 1)
 
     def test_renter_point_new_release(self):
-        actual = RentGroup(Rent(3, base_movie())).rent_points()
+        actual = MovieRentGroup(MovieRent(3, base_movie())).rent_points()
         assert (actual == 2)
 
     def test_renter_point_multiple_movie(self):
-        actual = RentGroup(
-            Rent(1, children_movie()),
-            Rent(3, base_movie())
+        actual = MovieRentGroup(
+            MovieRent(1, children_movie()),
+            MovieRent(3, base_movie())
         ).rent_points()
         assert (actual == 3)
 
     def __assert_movie(self, expected, movie):
         for k, v in expected.items():
-            p = Rent(k, movie).price_for()
+            p = MovieRent(k, movie).price_for()
             self.assertEqual(p, v)

@@ -1,6 +1,6 @@
 import unittest
 
-from lib.core import RentGroup, Rent, children_movie, base_movie, regular_movie, VideoStore
+from lib.core import MovieRentGroup, MovieRent, children_movie, base_movie, regular_movie, VideoStore
 from lib.receipt import PlainTextReceipt, HtmlReceipt
 
 
@@ -10,7 +10,7 @@ class InMemoryDisplay:
         self.storage = ""
         self._receipt = receipt
 
-    def print(self, user, rent_group: RentGroup):
+    def print(self, user, rent_group: MovieRentGroup):
         self.storage = self._receipt().generate(user, rent_group)
 
 
@@ -20,10 +20,10 @@ class MovieTests(unittest.TestCase):
         display = InMemoryDisplay(PlainTextReceipt)
 
         VideoStore(display) \
-            .add(Rent(1, base_movie("The game of thrones"))) \
-            .add(Rent(1, children_movie("Cinderella"))) \
-            .add(Rent(1, regular_movie("Mr. Robot"))) \
-            .add(Rent(3, regular_movie("The Hobbit"))) \
+            .add(MovieRent(1, base_movie("The game of thrones"))) \
+            .add(MovieRent(1, children_movie("Cinderella"))) \
+            .add(MovieRent(1, regular_movie("Mr. Robot"))) \
+            .add(MovieRent(3, regular_movie("The Hobbit"))) \
             .print_receipt("Fred")
 
         expected = 'Rental Record for Fred\n' \
@@ -40,10 +40,10 @@ class MovieTests(unittest.TestCase):
         display = InMemoryDisplay(HtmlReceipt)
 
         VideoStore(display) \
-            .add(Rent(1, base_movie("The game of thrones"))) \
-            .add(Rent(1, children_movie("Cinderella"))) \
-            .add(Rent(1, regular_movie("Mr. Robot"))) \
-            .add(Rent(3, regular_movie("The Hobbit"))) \
+            .add(MovieRent(1, base_movie("The game of thrones"))) \
+            .add(MovieRent(1, children_movie("Cinderella"))) \
+            .add(MovieRent(1, regular_movie("Mr. Robot"))) \
+            .add(MovieRent(3, regular_movie("The Hobbit"))) \
             .print_receipt("Fred")
 
         expected = '<!DOCTYPE html>\n' \

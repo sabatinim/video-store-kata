@@ -1,9 +1,9 @@
-from lib.core import RentGroup
+from lib.core import MovieRentGroup
 
 
 class PlainTextReceipt:
 
-    def generate(self, user, rent_group: RentGroup) -> str:
+    def generate(self, user, rent_group: MovieRentGroup) -> str:
         movie_group = format(lambda t: f"- {t[0]} {t[1]}\n", rent_group)
 
         return f'Rental Record for {user}\n' \
@@ -14,7 +14,7 @@ class PlainTextReceipt:
 
 class HtmlReceipt:
 
-    def generate(self, user, rent_group: RentGroup) -> str:
+    def generate(self, user, rent_group: MovieRentGroup) -> str:
         movie_group = format(lambda t: f"<li>{t[0]} {t[1]}</li>\n", rent_group)
 
         expected = '<!DOCTYPE html>\n' \
@@ -34,5 +34,5 @@ class HtmlReceipt:
         return expected
 
 
-def format(func, rent_group: RentGroup):
+def format(func, rent_group: MovieRentGroup):
     return list(map(func, rent_group.price_per_movie()))
