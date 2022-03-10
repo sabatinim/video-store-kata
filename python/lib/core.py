@@ -59,6 +59,19 @@ class RentGroup:
         return sum(map(lambda r: r.rent_point_for(), self.rents))
 
 
+class VideoStore:
+    def __init__(self, display):
+        self._display = display
+        self._rents = []
+
+    def add(self, r: Rent):
+        self._rents.append(r)
+        return self
+
+    def print_receipt(self, user: str):
+        self._display.print(user, RentGroup(*self._rents))
+
+
 def regular_movie(title: str = "") -> Movie:
     return Movie(
         rent_price=Decimal(2.0),
