@@ -1,7 +1,7 @@
-from lib.core import MovieRentGroup
+from lib.core import MovieRentGroup, Receipt
 
 
-class PlainTextReceipt:
+class PlainTextReceipt(Receipt):
 
     def generate(self, user, rent_group: MovieRentGroup) -> str:
         movie_group = format(lambda t: f"- {t[0]} {t[1]}\n", rent_group)
@@ -12,7 +12,7 @@ class PlainTextReceipt:
                f'You earned {rent_group.rent_points()} frequent renter points'
 
 
-class HtmlReceipt:
+class HtmlReceipt(Receipt):
 
     def generate(self, user, rent_group: MovieRentGroup) -> str:
         movie_group = format(lambda t: f"<li>{t[0]} {t[1]}</li>\n", rent_group)

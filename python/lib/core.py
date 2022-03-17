@@ -1,3 +1,4 @@
+from abc import abstractmethod
 from decimal import *
 
 
@@ -56,6 +57,12 @@ class MovieRentGroup:
 
     def rent_points(self) -> int:
         return sum(map(lambda r: r.rent_point_for(), self.movie_rent_list))
+
+
+class Receipt:
+    @abstractmethod
+    def generate(self, user, rent_group: MovieRentGroup) -> str:
+        pass
 
 
 class VideoStore:

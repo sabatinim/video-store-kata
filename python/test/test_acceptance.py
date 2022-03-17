@@ -1,24 +1,24 @@
 import unittest
 
 from lib.core import MovieRentGroup, MovieRent, children_movie, base_movie, regular_movie, VideoStore
-from lib.receipt import PlainTextReceipt, HtmlReceipt
+from lib.receipt import PlainTextReceipt, HtmlReceipt, Receipt
 
 
 class InMemoryDisplay:
 
-    def __init__(self, *receipt_group):
+    def __init__(self, *receipt_group: Receipt):
         self.storage = []
         self._receipt_group = receipt_group
 
     def print(self, user, rent_group: MovieRentGroup):
         for r in self._receipt_group:
-            self.storage.append(r().generate(user, rent_group))
+            self.storage.append(r.generate(user, rent_group))
 
 
 class MovieTests(unittest.TestCase):
 
     def test_acceptance(self):
-        display = InMemoryDisplay(PlainTextReceipt, HtmlReceipt)
+        display = InMemoryDisplay(PlainTextReceipt(), HtmlReceipt())
 
         VideoStore(display) \
             .add(MovieRent(1, base_movie("The game of thrones"))) \
