@@ -53,3 +53,6 @@ class MovieTests(unittest.TestCase):
         for k, v in expected.items():
             p = MovieRent(k, movie).price_for()
             self.assertEqual(p, v)
+
+if __name__ == '__main__':
+    unittest.main()
