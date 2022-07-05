@@ -3,7 +3,7 @@
 
 The idea of this kata is taken for the video store example from the book "Refactoring" of Martin Fowler  
 
-In the video store there are 3 types of movies tha can be sold:  
+In the video store there are 3 types of movies that can be sold:  
 - regular movies 
 - new release movies 
 - children movies
