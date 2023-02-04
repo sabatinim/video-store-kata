@@ -13,7 +13,7 @@ const calculateAdditionalCost = (rental: Rental): MoviePrices => {
 const calculatePrice = (moviePrices: MoviePrices): number =>
      moviePrices.movieBasePrice + moviePrices.additionalCost
 
-export const calculateTotalPriceWith =
+const calculateTotalPriceWith =
     (calculateMoviePrice:(r:Rental) => number) =>
      (rentals:Rental[]) => rentals.map(calculateMoviePrice).reduce((x,y)=>x+y)
 

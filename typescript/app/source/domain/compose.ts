@@ -1,6 +1,6 @@
-export const compose = <TX,TY,R>(
-    f: (x: TX) => TY,
-    g: (y: TY) => R):
-    (x: TX) => R => {
+export const compose = <A,B,C>(
+    f: (x: A) => B,
+    g: (y: B) => C):
+    (x: A) => C => {
     return (x) => g(f(x))
 };

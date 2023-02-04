@@ -3,8 +3,8 @@ import {
     newReleaseConfiguration,
     Rental
 } from "../../../source/domain/movie/videoStore"
-import {printTextReceipt} from "../../../source/domain/movie/textReceipt";
-import {printHtmlReceipt} from "../../../source/domain/movie/htmlReceipt";
+import {printTextReceipt} from "../../../source/infrastructure/textReceipt";
+import {printHtmlReceipt} from "../../../source/infrastructure/htmlReceipt";
 
 describe('Video Store', function () {
 

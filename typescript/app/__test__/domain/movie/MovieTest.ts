@@ -8,9 +8,9 @@ import {calculateSingleMoviePrice} from "../../../source/domain/movie/price";
 describe('Movie', function () {
 
     it('rent new release movie one day', () => {
-        expect(calculateSingleMoviePrice(new Rental(1,
-            newReleaseConfiguration("UNUSED"))
-
+        expect(
+            calculateSingleMoviePrice(
+                new Rental(1,newReleaseConfiguration("UNUSED"))
         )).toEqual(3.0)
     });
 
