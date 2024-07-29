@@ -1,8 +1,9 @@
-import {genericReceipt, printableMovie, PrintableMovie} from "../domain/movie/receipt";
+import {printableMovie, PrintableMovie} from "../domain/movie/receipt";
 import {Rental} from "../domain/movie/videoStore";
 import {calculateRentalPoints} from "../domain/movie/rentPoint";
 import {calculateTotalMoviesPrice} from "../domain/movie/price";
 import {compose} from "../domain/compose";
+import Decimal from 'decimal.js';
 
 const htmlMovieReceipt = (m: PrintableMovie): string =>
     `<li>${m.title} ${m.priceRepresentation}</li>`
@@ -12,7 +13,7 @@ const htmlMoviesReceiptWith = (
     (rentals: Rental[]) => `<ul>\n${rentals.map(r => htmlMovieReceipt(r)).join("\n")}\n</ul>`
 
 const htmlFooterReceiptWith = (
-    calculateMoviesTotalPrice: (rentals: Rental[]) => number) =>
+    calculateMoviesTotalPrice: (rentals: Rental[]) => Decimal) =>
     (rentals: Rental[]) => `<br>You owed ${calculateMoviesTotalPrice(rentals).toPrecision(2)}`
 
 const htmlFooterRentalPointReceiptWith = (
@@ -38,12 +39,11 @@ const htmlHeader = (user: string) =>
     `<title>Video store - statement for ${user}</title>\n` +
     `</head>\n` +
     `<body>\n` +
-    `<h1>Rental Record for ${user}</h1>\n`
+    `<h1>Rental Record for ${user}</h1>`
 
-//WIRING THE PRINT FUNCTION WITH HTML TEXT BEHAVIOUR
-export const printHtmlReceipt: (user: string, rentals: Rental[]) => string =
-    genericReceipt(
-        htmlHeader,
-        htmlMoviesReceipt,
-        htmlFooterReceipt,
-        htmlFooterRentalPointReceipt)
+export const printHtmlReceipt = (user: string, rentals: Rental[]): string => {
+    return htmlHeader(user) + "\n" +
+           htmlMoviesReceipt(rentals) + "\n" +
+           htmlFooterReceipt(rentals) + "\n" +
+           htmlFooterRentalPointReceipt(rentals)
+}
