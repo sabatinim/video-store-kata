@@ -20,6 +20,7 @@ jobs:
         with:
           ruby-version: "3.4"
           bundler-cache: true
+          working-directory: ruby
 
       - name: Run tests and print coverage
         run: bash devops/run.sh cover
