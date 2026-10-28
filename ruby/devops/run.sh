@@ -1,8 +1,24 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+cd "$(dirname "$0")/.."
+
 run_tests() {
   bundle exec ruby -I lib -e 'Dir.glob("test/**/*_test.rb").sort.each { |file| require File.expand_path(file) }'
+}
+
+run_coverage() {
+  bundle exec ruby -rcoverage -Ilib - <<'RUBY'
+Coverage.start
+require "minitest"
+require_relative "devops/coverage_report"
+
+Minitest.after_run do
+  print CoverageReport.format(Coverage.result, source_root: File.expand_path("lib"))
+end
+
+Dir.glob("test/**/*_test.rb").sort.each { |file| require File.expand_path(file) }
+RUBY
 }
 
 run_main() {
@@ -27,6 +43,9 @@ case "$mode" in
   test|tests)
     run_tests
     ;;
+  coverage|cover)
+    run_coverage
+    ;;
   main)
     run_main "$@"
     ;;
@@ -39,7 +58,7 @@ case "$mode" in
     fi
     ;;
   *)
-    printf 'Usage: %s [test|main|all] [main options...]\n' "$0" >&2
+    printf 'Usage: %s [test|coverage|main|all] [main options...]\n' "$0" >&2
     exit 2
     ;;
 esac
