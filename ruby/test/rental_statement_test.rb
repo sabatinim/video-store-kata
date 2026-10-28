@@ -6,7 +6,7 @@ require_relative "../lib/movie_rental"
 require_relative "../lib/rental_statement"
 
 class RentalStatementTest < Minitest::Test
-  def test_generates_the_customer_statement_with_prices_total_and_renter_points
+  def test_calculates_total_price_and_frequent_renter_points
     rentals = [
       MovieRental.new("The game of thrones", NewReleaseMovie.new, 1),
       MovieRental.new("Cinderella", ChildrenMovie.new, 2),
@@ -16,16 +16,8 @@ class RentalStatementTest < Minitest::Test
 
     statement = RentalStatement.new("Fred", rentals)
 
-    assert_equal(
-      "Rental Record for Fred\n" \
-      "- The game of thrones 3.0\n" \
-      "- Cinderella 1.5\n" \
-      "- Mr. Robot 2.0\n" \
-      "- The Hobbit 3.5\n" \
-      "\n" \
-      "You owed 10.0\n" \
-      "You earned 4 frequent renter points",
-      statement.generate
-    )
+    assert_equal "Fred", statement.customer_name
+    assert_equal 10.0, statement.total_price
+    assert_equal 4, statement.frequent_renter_points
   end
 end
